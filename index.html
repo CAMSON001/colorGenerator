@@ -11,10 +11,17 @@
 
     <div class="container">
         <h1>Color Generator</h1>
-        <input type="text" id="hex-color">
-        <input type="range">
-        <input type="color" id="input-color">
-        <input type="color" id="altered-color">
+
+        <label for="hex">Color(Hex)</label>
+        <input type="text" id="hex-input" placeholder="#00000" name="hex">
+        
+        <label for="slider">0%</label>
+        <input type="range" id="slider" min="0" max="100" value="0" >
+
+        <p>Input color </p>
+        <div id="input-color" class="box"></div>
+        <p> Altered Color</p> 
+        <div id="input-color" class="box"></div>
 
     </div>
 
