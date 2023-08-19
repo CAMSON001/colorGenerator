@@ -40,4 +40,3 @@ hexInput.addEventListener("input", () => {
     
 });
 
-console.log(convertHex("000"));
