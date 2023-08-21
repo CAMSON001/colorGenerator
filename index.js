@@ -4,6 +4,30 @@ const sliderText = document.getElementById('sliderText');
 const slider = document.getElementById('slider');
 const alteredColor = document.getElementById('altered-color');
 const alteredColorText = document.getElementById('alteredColorText');
+const cercle = document.querySelector(".inner-circle")
+const toggleBtn = document.querySelector(".toggle-btn")
+const lightenText = document.getElementById('lightenText');
+const darkenText = document.getElementById('darkenText');
+const container = document.querySelector('.container')
+
+
+
+
+cercle.addEventListener("click", ()=>{
+    if(toggleBtn.classList.contains('toggled')){
+        toggleBtn.classList.remove('toggled');
+        lightenText.classList.remove('unselected');
+        darkenText.classList.add('unselected');
+        container.classList.remove('toggled')
+
+      } else {
+        toggleBtn.classList.add('toggled');
+        lightenText.classList.add('unselected');
+        darkenText.classList.remove('unselected');
+        container.classList.add('toggled')
+      } 
+      reset()
+}) 
 
 
 // function to convert Hex to RGB 
@@ -24,6 +48,7 @@ function convertHexToRGB(hex) {
     }
     return null
 }
+
 
 
 // funtion to convert RGB to Hex (it is used 
@@ -54,6 +79,9 @@ hexInput.addEventListener('input', () => {
     const strippedHex = hex.replace('#', '');
   
     inputColor.style.backgroundColor = "#" + strippedHex;  
+    alteredColor.style.backgroundColor = "#" + strippedHex;  
+    reset()
+
   })
 
 
@@ -86,13 +114,28 @@ const alterColor = (hex, percentage) => {
 slider.addEventListener('input', () => {
    
     if(!isValidHex(hexInput.value)) return;
-  
     sliderText.textContent = `${slider.value}%`;
+
+
+    const valueAddition  = 
+    toggleBtn.classList.contains('toggled') ? 
+    -slider.value 
+    : slider.value;
+  
     
     //get the altered hex value
-    const alteredHex = alterColor(hexInput.value, slider.value);
+    const alteredHex = alterColor(hexInput.value, valueAddition);
     alteredColor.style.backgroundColor = alteredHex;
     alteredColorText.innerText = `Altered Color ${alteredHex}`; 
     //update the altered color
 })
 
+
+const reset = ()=>{
+    sliderText.innerText= `0%`
+    alteredColor.style.backgroundColor = hexInput.value;  
+    slider.value = 0;
+    alteredColorText.innerText = `Altered Color`; 
+
+
+}

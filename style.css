@@ -19,9 +19,11 @@ body{
     width: 40%;
     height: 500px;
     box-shadow: 0  3 3 0;
-    background-color: rgba(224, 236, 223, 0.713);
-    padding: 10px;
+    font-family: 'Montserrat', sans-serif;
+    padding: 0 10px;
     display: grid;
+    background-color: #dadce3;
+    color: black;
     
 }
 
@@ -47,16 +49,14 @@ body{
 }
 .container .box{
     background-color: #d845df;
-    border: 2px black solid ;
+
 }
 
 .container #altered-color{
     width: 100%;
     height: 60px;
 }
-p{
-    color: #d845df;
-}
+
 
 .toggle-text {
     font-size: 18px;
@@ -83,12 +83,28 @@ p{
     border-radius: 50%;
     background-color: white;
     transition: all 250ms;
+    cursor: pointer;
 }
 
 .toggle-btn.toggled > .inner-circle {
     transform: translateX(30px);
     background-color: #333;
 }
+
 .unselected {
     opacity: 0.25;
+}
+
+
+.container.toggled{
+   
+    background-color: #3e4560;
+    color: white;
+
+    
+}
+
+.container.toggled input[type="text"]{
+    background-color: white;
+    
 }
