@@ -1,12 +1,12 @@
-let hexInput = document.getElementById("hex-input");
-let inputColor = document.getElementById("input-color")
-let hexValue ="";
+const hexInput = document.getElementById("hex-input");
+const inputColor = document.getElementById("input-color")
 const sliderText = document.getElementById('sliderText');
 const slider = document.getElementById('slider');
 const alteredColor = document.getElementById('altered-color');
+const alteredColorText = document.getElementById('alteredColorText');
 
 
-
+// function to convert Hex to RGB 
 function convertHexToRGB(hex) {
     if (isValidHex(hex)) {
         let strippedHex = hex.replace('#', ' ')
@@ -26,7 +26,8 @@ function convertHexToRGB(hex) {
 }
 
 
-
+// funtion to convert RGB to Hex (it is used 
+  //in the the fucntion alteredColor)
 function convertRGBToHex(r, g, b) {
       const firstPair = ("0" + r.toString(16)).slice(-2);
       const secondPair = ("0" + g.toString(16)).slice(-2);
@@ -36,7 +37,7 @@ function convertRGBToHex(r, g, b) {
       return hex;
 }
 
-
+//function to verify if the hex is valid or not 
 const isValidHex = (hex) => {
     if(!hex) return false;
     
@@ -44,15 +45,19 @@ const isValidHex = (hex) => {
     return strippedHex.length === 3 || strippedHex.length === 6;
 }
 
-hexInput.addEventListener("input", () => {
-    hexValue = hexInput.value; 
-    if (isValidHex(hexValue)){
-        inputColor.style.background = hexValue; 
-    }
+//Event on the input to change  de color of InpurColor 
+hexInput.addEventListener('input', () => {
+  
+    const hex = hexInput.value;
+    if(!isValidHex(hex)) return;
     
-    
-});
+    const strippedHex = hex.replace('#', '');
+  
+    inputColor.style.backgroundColor = "#" + strippedHex;  
+  })
 
+
+  //function altered color 
 const alterColor = (hex, percentage) => {
     const {r, g, b} = convertHexToRGB(hex);
     
@@ -65,11 +70,29 @@ const alterColor = (hex, percentage) => {
     return convertRGBToHex(newR, newG, newB);
   }
   
+
+  //function that permit to choose the intervall of r g and b between 0 to 255 (it is used 
+  //in the the fucntion alteredColor)
   const increaseWithin0To255 = (hex, amount) => {
+    // const newHex = hex + amount;
+  // if(newHex > 255) return 255;
+  // if(newHex < 0) return 0;
+  // return newHex;
     return Math.min(255, Math.max(0, hex + amount));
   }
 
+
+//Event on the slider to altered  the color 
 slider.addEventListener('input', () => {
-    sliderText.textContent = `${slider.value}%`
+   
+    if(!isValidHex(hexInput.value)) return;
+  
+    sliderText.textContent = `${slider.value}%`;
+    
+    //get the altered hex value
+    const alteredHex = alterColor(hexInput.value, slider.value);
+    alteredColor.style.backgroundColor = alteredHex;
+    alteredColorText.innerText = `Altered Color ${alteredHex}`; 
+    //update the altered color
 })
 
